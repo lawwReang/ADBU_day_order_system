@@ -63,3 +63,34 @@ footer { padding: 30px; text-align: center; font-size: 0.75rem; color: #64748b; 
 .admin-controls { margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px; text-align: left; }
 .admin-controls h3 { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 20px; }
 .admin-controls label { display: block; font-size: 0.7rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+
+/* A damn calendar */
+.calendar {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px;
+  margin-top: 25px;
+}
+
+.calendar-day {
+  background: rgba(255,255,255,0.05);
+  border-radius: 12px;
+  padding: 10px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+
+.calendar-day:hover {
+  background: rgba(255,255,255,0.08);
+}
+
+.calendar-date {
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.calendar-order {
+  font-size: 0.7rem;
+  margin-top: 5px;
+  color: #94a3b8;
+}

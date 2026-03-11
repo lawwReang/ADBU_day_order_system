@@ -17,6 +17,8 @@ function showGuestView() {
   show("guestView");
   document.getElementById("title").textContent = "Student Portal";
   fetchDayOrder("dayOrderInfo");
+
+  generateCalendar("calendar");
 }
 
 function showAdminLogin() {
@@ -44,6 +46,7 @@ async function verifyPassword() {
     show("adminPanel");
     fetchDayOrder("adminDayOrderInfo");
     document.getElementById("title").textContent = "Admin Console";
+    generateCalendar("aCalendar");
   } else alert("Incorrect PIN");
 }
 
@@ -93,3 +96,56 @@ document.getElementById("holidayForm").addEventListener("submit", async (e) => {
     fetchDayOrder("adminDayOrderInfo");
   }
 });
+// CALENDARRR BACKENDDDD COOOOODEEE
+async function generateCalendar(containerId) {
+
+  const container = document.getElementById(containerId);
+  container.innerHTML = "";
+
+  const calendar = document.createElement("div");
+  calendar.className = "calendar";
+
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = today.getMonth();
+
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  for (let day = 1; day <= daysInMonth; day++) {
+
+    const dateStr =
+      year + "-" + String(month + 1).padStart(2, "0") + "-" + String(day).padStart(2, "0");
+
+    try {
+
+      const response = await fetch(`/api/day-order/${dateStr}`);
+      const data = await response.json();
+
+      const cell = document.createElement("div");
+      cell.className = "calendar-day";
+
+      let orderText = "";
+
+      if (data.status === "WORKING DAY") {
+        orderText = data.day_order;
+      } else if (data.reason) {
+        orderText = data.reason;
+      } else {
+        orderText = data.status;
+      }
+
+      cell.innerHTML = `
+        <div class="calendar-date">${day}</div>
+        <div class="calendar-order">${orderText}</div>
+      `;
+
+      calendar.appendChild(cell);
+
+    } catch {
+      console.error("Fetch failed you idiot sandwich");
+    }
+  }
+
+  container.appendChild(calendar);
+}
+
