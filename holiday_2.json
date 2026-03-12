@@ -1,0 +1,127 @@
+{
+  "semester_start_date": "2026-03-04",
+  "day_order_cycle": 5,
+  "holidays": [
+    {
+      "date": "2026-03-19",
+      "name": "Eid al-Fitr"
+    },
+    {
+      "date": "2026-04-03",
+      "name": "Good Friday"
+    },
+    {
+      "date": "2026-04-12",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-13",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-14",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-15",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-16",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-17",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-18",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-19",
+      "name": "Mid Semester Break"
+    },
+    {
+      "date": "2026-04-21",
+      "name": "Class Test 2"
+    },
+    {
+      "date": "2026-04-22",
+      "name": "Class Test 2"
+    },
+    {
+      "date": "2026-04-23",
+      "name": "Class Test 2"
+    },
+    {
+      "date": "2026-05-01",
+      "name": "Buddha Purnima"
+    },
+    {
+      "date": "2026-05-27",
+      "name": "Id-Ul-Zuha"
+    },
+    {
+      "date": "2026-06-10",
+      "name": "Study Leave"
+    },
+    {
+      "date": "2026-06-11",
+      "name": "Study Leave"
+    },
+    {
+      "date": "2026-06-12",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-13",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-15",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-16",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-17",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-18",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-19",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-20",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-22",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-23",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-24",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-25",
+      "name": "End Sem Examinations"
+    },
+    {
+      "date": "2026-06-26",
+      "name": "Muharam"
+    }
+   
+  ]
+}
