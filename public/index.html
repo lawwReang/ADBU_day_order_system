@@ -1,19 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ADBU - Academic Portal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
-    <style>.hidden { display: none !important; }</style>
+    <style>
+        .hidden {
+            display: none !important;
+        }
+    </style>
 </head>
-<body>
-    <div class="stars"></div>
-    <div class="shooting-star"></div>
-    <div class="shooting-star"></div>
-    <div class = "shooting-star"></div>
 
+<body>
     <header>
         <div class="nav-brand">
             <img src="logo.png" class="header-logo" alt="Logo">
@@ -25,79 +28,87 @@
         <div class="container">
             <h1 id="title">Services</h1>
             <p id="portalStatus" class="portal-subtitle">Day Order Gateway</p>
+        </div>
 
-            <div id="welcomeScreen">
-                <div class="notice-board">
-                    <span class="notice-badge">Important Update</span>
-                    <div class="notice-text">Please update emergency holidays before 8:00 PM for correct day synchronization.</div>
-                </div>
-                <div class="welcome-grid">
-                    <div class="portal-card" onclick="showGuestView()">
-                        <div class="portal-icon">🎓</div>
-                        <div class="portal-text">
-                            <span class="portal-label">Student Information</span>
-                            <br>
-                            <span class="portal-desc">View day order</span>
-                        </div>
+        <div class="notice-board">
+            <span class="notice-badge">Important Update</span>
+            <div class="notice-text">Please update emergency holidays before 8:00 PM for correct day
+                synchronization.</div>
+        </div>
+
+        <div id="welcomeScreen">
+            <div class="welcome-grid">
+                <div class="portal-card" onclick="showGuestView()">
+                    <div class="portal-icon">🎓</div>
+                    <div class="portal-text">
+                        <span class="portal-label">Student Information</span>
+                        <br>
+                        <span class="portal-desc">View day order</span>
                     </div>
-                    <div class="portal-card" onclick="showAdminLogin()">
-                        <div class="portal-icon">🔑</div>
-                        <div class="portal-text">
-                            <span class="portal-label">Admin Console</span>
-                            <br>
-                            <span class="portal-desc">Internal system management</span>
-                        </div>
+                </div>
+                <div class="portal-card" onclick="showAdminLogin()">
+                    <div class="portal-icon">🔑</div>
+                    <div class="portal-text">
+                        <span class="portal-label">Admin Console</span>
+                        <br>
+                        <span class="portal-desc">Internal system management</span>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div id="guestView" class="hidden">
-                <div id="dayOrderInfo">Connecting...</div>
-                <button class="btn-calendar" onclick="openCalendar()"> View Day Order Calendar</button>
-                <a class="back-link" onclick="showWelcome()">← Return to Services</a>
+        <div id="guestView" class="hidden">
+            <div id="dayOrderInfo">Connecting...</div>
+            <button class="btn-calendar" onclick="openCalendar()"> View Day Order Calendar</button>
+            <a class="back-link" onclick="showWelcome()">← Return to Services</a>
+        </div>
+
+        <div id="adminLogin" class="hidden">
+            <div class="login-box">
+                <input type="password" id="pinInput" placeholder="System PIN">
+                <button class="btn-login" onclick="verifyPassword()">Authenticate</button>
             </div>
+            <a class="back-link" onclick="showWelcome()">← Return to Services</a>
+        </div>
 
-            <div id="adminLogin" class="hidden">
-                <div class="login-box">
-                    <input type="password" id="pinInput" placeholder="System PIN">
-                    <button class="btn-login" onclick="verifyPassword()">Authenticate</button>
+        <div id="adminPanel" class="hidden">
+            <div id="adminDayOrderInfo"></div>
+            <button class="btn-calendar" onclick="openCalendar()">View Day Order Calendar</button>
+            <div class="admin-controls">
+                <h3>System Manager</h3>
+                <form id="holidayForm">
+                    <label>Target Date</label>
+                    <input type="date" id="hDate" required>
+                    <label>Override Reason</label>
+                    <input type="text" id="hReason" placeholder="Reason (e.g. Rain)" required>
+                    <button type="submit" class="btn-add">Commit Holiday</button>
+                </form>
+                <div id="message" class="hidden"></div>
+            </div>
+            <a class="back-link" onclick="logout()">← Sign Out</a>
+        </div>
+
+        <!-- Calendar Model -->
+        <div id="calendarModal" class="calendar-modal hidden">
+            <div class="calendar-content">
+                <div class="calendar-header">
+                    <button onclick="prevMonth()">&lt;</button>
+                    <h2 id="calendarMonth">March 2026</h2>
+                    <button onclick="nextMonth()">&gt;</button>
                 </div>
-                <a class="back-link" onclick="showWelcome()">← Return to Services</a>
-            </div>
-
-            <div id="adminPanel" class="hidden">
-                <div id="adminDayOrderInfo"></div>
-                <button class="btn-calendar" onclick="openCalendar()">View Day Order Calendar</button>
-                <div class="admin-controls">
-                    <h3>System Manager</h3>
-                    <form id="holidayForm">
-                        <label>Target Date</label>
-                        <input type="date" id="hDate" required>
-                        <label>Override Reason</label>
-                        <input type="text" id="hReason" placeholder="Reason (e.g. Rain)" required>
-                        <button type="submit" class="btn-add">Commit Holiday</button>
-                    </form>
-                    <div id="message" class="hidden"></div>
+                <div class="calendar-days">
+                    <div>Sun</div>
+                    <div>Mon</div>
+                    <div>Tue</div>
+                    <div>Wed</div>
+                    <div>Thu</div>
+                    <div>Fri</div>
+                    <div>Sat</div>
                 </div>
-                <a class="back-link" onclick="logout()">← Sign Out</a>
-            </div>
-
-            <!-- Calendar Model -->
-            <div id="calendarModal" class="calendar-modal hidden">
-                <div class="calendar-content">
-                    <div class="calendar-header">
-                        <button onclick="prevMonth()">&lt;</button>
-                        <h2 id="calendarMonth">March 2026</h2>
-                        <button onclick="nextMonth()">&gt;</button>
-                    </div>
-                    <div class="calendar-days">
-                        <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
-                    </div>
-                    <div id="calendarGrid" class="calendar-grid"></div>
-                    <div class="calendar-footer">
-                        <div id="hoverInfo" class="hover-info">Hover over a date to see the Day Order</div>
-                        <button class="btn-close" onclick="closeCalendar()">Close</button>
-                    </div>
+                <div id="calendarGrid" class="calendar-grid"></div>
+                <div class="calendar-footer">
+                    <div id="hoverInfo" class="hover-info">Hover over a date to see the Day Order</div>
+                    <button class="btn-close" onclick="closeCalendar()">Close</button>
                 </div>
             </div>
         </div>
@@ -107,6 +118,10 @@
         <p>&copy; 2026 Assam Don Bosco University. All rights reserved.</p>
     </footer>
 
+    <!-- jQuery and Ripples for Interactive Water Background -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
     <script src="script.js"></script>
 </body>
+
 </html>
