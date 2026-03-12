@@ -50,6 +50,25 @@ input:focus { outline: none; border-color: #3b82f6; background: rgba(255, 255, 2
 .btn-add { background: #10b981; box-shadow: 0 4px 14px rgba(16, 185, 129, 0.4); }
 .btn-add:hover { background: #059669; transform: translateY(-2px); }
 
+.btn-calendar {
+    width: 100%;
+    padding: 12px;
+    margin-top: 20px;
+    background: rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    border-radius: 12px;
+    color: #3b82f6;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    font-size: 0.85rem;
+}
+.btn-calendar:hover {
+    background: rgba(59, 130, 246, 0.2);
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
 .status-working, .status-non-working { display: inline-block; padding: 12px 28px; border-radius: 25px; font-weight: 800; margin-top: 15px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 .status-working { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 2px solid #10b981; }
 .status-non-working { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 2px solid #ef4444; }
@@ -63,3 +82,59 @@ footer { padding: 30px; text-align: center; font-size: 0.75rem; color: #64748b; 
 .admin-controls { margin-top: 30px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 25px; text-align: left; }
 .admin-controls h3 { font-size: 0.9rem; font-weight: 800; text-transform: uppercase; color: #fff; margin-bottom: 20px; }
 .admin-controls label { display: block; font-size: 0.7rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; margin-bottom: 5px; }
+
+/* CALENDAR MODAL STYLES */
+.calendar-modal {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center; z-index: 1000;
+}
+.calendar-content {
+    background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 24px; padding: 25px; width: 90%; max-width: 500px;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+}
+.calendar-header {
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;
+}
+.calendar-header h2 { font-size: 1.2rem; margin: 0; color: #fff; font-family: 'Montserrat', sans-serif; }
+.calendar-header button {
+    background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff; padding: 5px 12px; border-radius: 8px; cursor: pointer; transition: 0.3s;
+}
+.calendar-header button:hover { background: #3b82f6; border-color: #3b82f6; }
+
+.calendar-days {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px;
+    margin-bottom: 10px; font-weight: 700; font-size: 0.8rem; color: #94a3b8;
+}
+.calendar-grid {
+    display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px;
+}
+.calendar-day {
+    aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+    background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px; font-size: 0.9rem; cursor: pointer; transition: 0.3s; position: relative;
+}
+.calendar-day:hover { background: rgba(59, 130, 246, 0.2); border-color: #3b82f6; transform: scale(1.05); }
+.calendar-day.empty { background: transparent; border: none; cursor: default; }
+.calendar-day.weekend { color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+.calendar-day.holiday { color: #fbbf24; background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); }
+.calendar-day.today { border: 2px solid #3b82f6; font-weight: 800; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
+
+.calendar-footer { margin-top: 25px; border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; }
+.hover-info {
+    font-size: 0.85rem; color: #e2e8f0; min-height: 24px; margin-bottom: 15px;
+    font-weight: 600; text-shadow: 0 0 10px rgba(59, 130, 246, 0.4);
+}
+.btn-close {
+    background: transparent; border: 1px solid #64748b; color: #64748b;
+    padding: 10px 20px; border-radius: 12px; font-size: 0.75rem; font-weight: 700;
+    text-transform: uppercase; cursor: pointer; transition: 0.3s; width: 100%;
+}
+.btn-close:hover { background: rgba(100, 116, 139, 0.1); color: #94a3b8; }
+
+.day-tag {
+    position: absolute; bottom: 2px; right: 2px; font-size: 0.5rem;
+    color: #10b981; font-weight: 800;
+}
