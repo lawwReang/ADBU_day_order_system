@@ -575,3 +575,80 @@ footer {
     color: #10b981;
     font-weight: 800;
 }
+
+/* MOBILE RESPONSIVENESS */
+@media (max-width: 768px) {
+    header {
+        padding: 10px 20px;
+    }
+
+    .nav-brand {
+        font-size: 0.9rem;
+        gap: 10px;
+    }
+
+    .header-logo {
+        height: 40px;
+    }
+
+    main {
+        padding: 30px 15px;
+    }
+
+    .welcomebox {
+        padding: 30px 20px;
+    }
+
+    .welcome-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .portal-card {
+        padding: 15px;
+    }
+
+    .portal-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 2rem;
+        margin-right: 15px;
+    }
+
+    .portal-label {
+        font-size: 1.1rem;
+        word-spacing: normal;
+    }
+
+    .portal-desc {
+        font-size: 0.85rem;
+    }
+
+    .notice-board {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .notice-marquee {
+        width: 100%;
+    }
+
+    .notice-text {
+        padding-right: 100vw;
+    }
+
+    .day-cycle-display {
+        font-size: 2rem;
+    }
+
+    .calendar-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .calendar-days,
+    .calendar-day {
+        font-size: 0.75rem;
+    }
+}
