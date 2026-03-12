@@ -6,19 +6,6 @@ let holidayConfig = null;
 const hide = (id) => document.getElementById(id).classList.add("hidden");
 const show = (id) => document.getElementById(id).classList.remove("hidden");
 
-// Initialize interactive water background
-$(document).ready(function () {
-  try {
-    $('body').ripples({
-      resolution: 512,
-      dropRadius: 50,
-      perturbance: 0.5
-    });
-  } catch (e) {
-    console.error("Ripples initialization failed:", e);
-  }
-});
-
 // Helper to get local YYYY-MM-DD (Fixes Timezone Shift)
 function getLocalDateString(date) {
   const y = date.getFullYear();

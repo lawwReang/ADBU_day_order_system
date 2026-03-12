@@ -55,7 +55,7 @@ main {
 #adminLogin,
 .adminPanel {
     width: 100%;
-    max-width: 530px;
+    max-width: fit-content;
     box-sizing: border-box;
 }
 
@@ -113,17 +113,24 @@ main {
     font-weight: 600;
 }
 
+.welcome-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    width: 100%;
+}
+
 .portal-card {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    padding: 18px 22px;
+    padding: 24px 20px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     cursor: pointer;
     transition: 0.3s;
-    margin-bottom: 12px;
-    text-align: left;
+    text-align: center;
 }
 
 .portal-card:hover {
