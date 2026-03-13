@@ -6,7 +6,7 @@ let holidayConfig = null;
 const hide = (id) => document.getElementById(id).classList.add("hidden");
 const show = (id) => document.getElementById(id).classList.remove("hidden");
 
-// ✅ Helper to get local YYYY-MM-DD (Fixes Timezone Shift)
+// Helper to get local YYYY-MM-DD (Fixes Timezone Shift)
 function getLocalDateString(date) {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
@@ -222,7 +222,7 @@ document.getElementById("holidayForm").addEventListener("submit", async (e) => {
     msg.textContent = "Holiday applied successfully.";
     msg.classList.remove("hidden");
     document.getElementById("holidayForm").reset();
-    holidayConfig = null; // ✅ Force calendar to refresh config
+    holidayConfig = null; //  forcing  calendar to refresh config
     fetchDayOrder("adminDayOrderInfo");
   }
 });
