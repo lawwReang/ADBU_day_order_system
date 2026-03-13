@@ -226,8 +226,8 @@ main {
 .portal-icon {
     font-size: 3rem;
     margin-right: 18px;
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,7 +237,7 @@ main {
 
 .portal-label {
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     word-spacing: 10px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -245,7 +245,7 @@ main {
 }
 
 .portal-desc {
-    font-size: 1rem;
+    font-size: 0.8rem;
     color: #94a3b8;
     text-transform: capitalize;
 }
@@ -609,19 +609,19 @@ footer {
     }
 
     .portal-icon {
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
         font-size: 2rem;
         margin-right: 15px;
     }
 
     .portal-label {
-        font-size: 1.1rem;
+        font-size: 0.65rem;
         word-spacing: normal;
     }
 
     .portal-desc {
-        font-size: 0.85rem;
+        font-size: 0.6rem;
     }
 
     .notice-board {
