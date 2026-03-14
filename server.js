@@ -61,24 +61,38 @@ async function calculateDayOrderJS() {
     if (today < startDate) return { ...result, status: "Semester Not Started" };
 
     const dayOfWeek = today.getDay();
-    if (dayOfWeek === 0 || dayOfWeek === 6)
+    
+    // Even sats working days odd sats holidays 
+    if ( dayOfWeek === 0)
       return { ...result, status: "NON-WORKING DAY", reason: "Weekend" };
+    if (dayOfWeek === 6){
+      const date = today.getDate();
+      if (date % 2 == 1)
+        return { ...result, status: "NON-WORKING DAY", reason: "Weekend" };
+    }
     if (holidayData.has(today.toDateString()))
-      return {
-        ...result,
-        status: "NON-WORKING DAY",
-        reason: holidayData.get(today.toDateString()),
+      return {...result, status: "NON-WORKING DAY", reason: holidayData.get(today.toDateString()),
       };
 
     let workingDayCount = 0;
     let curr = new Date(startDate);
     while (curr <= today) {
-      if (
-        curr.getDay() !== 0 &&
-        curr.getDay() !== 6 &&
-        !holidayData.has(curr.toDateString())
-      )
-        workingDayCount++;
+      const day = curr.getDay();
+
+    // skip Sundayz
+    if (day === 0) {
+      curr.setDate(curr.getDate() + 1);
+      continue;
+    }
+
+    // skip odd Saturdays (Non working sats)
+    if (day === 6 && curr.getDate() % 2 === 1) {
+      curr.setDate(curr.getDate() + 1);
+      continue;
+    }
+    if (!holidayData.has(curr.toDateString())) {
+      workingDayCount++;
+    }
       curr.setDate(curr.getDate() + 1);
     }
 
