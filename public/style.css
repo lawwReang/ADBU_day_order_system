@@ -69,9 +69,10 @@ input:focus { outline: none; border-color: #3b82f6; background: rgba(255, 255, 2
     transform: translateY(-2px);
 }
 
-.status-working, .status-non-working { display: inline-block; padding: 12px 28px; border-radius: 25px; font-weight: 800; margin-top: 15px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
+.status-working, .status-non-working, .status-club-activities { display: inline-block; padding: 12px 28px; border-radius: 25px; font-weight: 800; margin-top: 15px; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; }
 .status-working { background: rgba(16, 185, 129, 0.1); color: #10b981; border: 2px solid #10b981; }
 .status-non-working { background: rgba(239, 68, 68, 0.1); color: #ef4444; border: 2px solid #ef4444; }
+.status-club-activities { background: rgba(168, 85, 247, 0.1); color: #a855f7; border: 2px solid #a855f7; }
 
 .day-cycle-display { font-size: 2.8rem; font-weight: 800; color: #fff; margin: 20px 0; text-shadow: 0 0 20px rgba(59, 130, 246, 0.6); font-family: 'Montserrat', sans-serif; }
 .reason-highlight { margin-top: 15px; display: block; color: #fca5a5; font-size: 1rem; font-weight: 700; letter-spacing: 0.5px; text-shadow: 0 0 10px rgba(239, 68, 68, 0.3); }
@@ -119,6 +120,7 @@ footer { padding: 30px; text-align: center; font-size: 0.75rem; color: #64748b; 
 .calendar-day:hover { background: rgba(59, 130, 246, 0.2); border-color: #3b82f6; transform: scale(1.05); }
 .calendar-day.empty { background: transparent; border: none; cursor: default; }
 .calendar-day.weekend { color: #ef4444; background: rgba(239, 68, 68, 0.05); }
+.calendar-day.club-day { color: #a855f7; background: rgba(168, 85, 247, 0.1); border-color: rgba(168, 85, 247, 0.3); }
 .calendar-day.holiday { color: #fbbf24; background: rgba(251, 191, 36, 0.1); border-color: rgba(251, 191, 36, 0.3); }
 .calendar-day.today { border: 2px solid #3b82f6; font-weight: 800; box-shadow: 0 0 10px rgba(59, 130, 246, 0.3); }
 

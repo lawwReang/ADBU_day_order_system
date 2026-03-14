@@ -6,12 +6,16 @@ let holidayConfig = null;
 const hide = (id) => document.getElementById(id).classList.add("hidden");
 const show = (id) => document.getElementById(id).classList.remove("hidden");
 
-// Helper to get local YYYY-MM-DD (Fixes Timezone Shift)
 function getLocalDateString(date) {
     const y = date.getFullYear();
     const m = String(date.getMonth() + 1).padStart(2, '0');
     const d = String(date.getDate()).padStart(2, '0');
     return `${y}-${m}-${d}`;
+}
+
+function getSaturdayOccurrence(date) {
+    const d = date.getDate();
+    return Math.ceil(d / 7);
 }
 
 // Replicating logic for frontend preview
@@ -26,19 +30,36 @@ function calculateDayOrderForDate(targetDate, config) {
     if (targetDate < startDate) return { status: "Semester Not Started" };
     
     const dayOfWeek = targetDate.getDay();
-    if (dayOfWeek === 0 || dayOfWeek === 6) return { status: "Weekend" };
-    
     const targetDateStr = getLocalDateString(targetDate);
     const holiday = holidays.find(h => h.date === targetDateStr);
+
+    // Rule 1: Sunday is always a non-working day
+    if (dayOfWeek === 0) return { status: "NON-WORKING DAY", reason: "Sunday" };
+
+    // Rule 2: Saturday logic
+    if (dayOfWeek === 6) {
+        if (holiday) return { status: holiday.name };
+        const occurrence = getSaturdayOccurrence(targetDate);
+        if (occurrence % 2 !== 0) {
+            return { status: "NON-WORKING DAY", reason: "Odd Saturday" };
+        } else {
+            return { status: "WORKING SATURDAY" };
+        }
+    }
+    
     if (holiday) return { status: holiday.name };
 
     let workingDayCount = 0;
     let curr = new Date(startDate);
     while (curr <= targetDate) {
-        const isWeekend = curr.getDay() === 0 || curr.getDay() === 6;
+        const currDayOfWeek = curr.getDay();
         const currStr = getLocalDateString(curr);
         const isHoliday = holidays.some(h => h.date === currStr);
-        if (!isWeekend && !isHoliday) workingDayCount++;
+        
+        // Working days are Mon-Fri that are not holidays
+        if (currDayOfWeek !== 0 && currDayOfWeek !== 6 && !isHoliday) {
+            workingDayCount++;
+        }
         curr.setDate(curr.getDate() + 1);
     }
 
@@ -114,7 +135,12 @@ function renderCalendar() {
         if (dateObj.toDateString() === today.toDateString()) dayDiv.classList.add("today");
         
         const dayOfWeek = dateObj.getDay();
-        if (dayOfWeek === 0 || dayOfWeek === 6) dayDiv.classList.add("weekend");
+        if (dayOfWeek === 0) dayDiv.classList.add("weekend");
+        else if (dayOfWeek === 6) {
+            const occurrence = getSaturdayOccurrence(dateObj);
+            if (occurrence % 2 !== 0) dayDiv.classList.add("weekend");
+            else dayDiv.classList.add("club-day");
+        }
 
         const dateStr = getLocalDateString(dateObj);
         const isHoliday = holidayConfig?.holidays.some(h => h.date === dateStr);
@@ -125,6 +151,8 @@ function renderCalendar() {
             const hoverInfo = document.getElementById("hoverInfo");
             if (result.dayOrder) {
                 hoverInfo.innerHTML = `<span style="color:#10b981">● ${result.dayOrder}</span> (${result.status})`;
+            } else if (result.status === "WORKING SATURDAY") {
+                hoverInfo.innerHTML = `<span style="color:#a855f7">● ${result.status}</span>`;
             } else {
                 hoverInfo.innerHTML = `<span style="color:#ef4444">○ ${result.status}</span>`;
             }
@@ -193,7 +221,10 @@ async function fetchDayOrder(targetId) {
     }
 
     let html = `<p style="font-size:0.95rem; color:#94a3b8"><strong>Date:</strong> ${data.date}</p>`;
-    const statusClass = data.status === "WORKING DAY" ? "status-working" : "status-non-working";
+    let statusClass = "status-non-working";
+    if (data.status === "WORKING DAY") statusClass = "status-working";
+    else if (data.status === "WORKING SATURDAY") statusClass = "status-club-activities";
+    
     html += `<div class="${statusClass}">${data.status}</div>`;
 
     if (data.day_order) html += `<div class="day-cycle-display">${data.day_order}</div>`;

@@ -61,8 +61,25 @@ async function calculateDayOrderJS() {
     if (today < startDate) return { ...result, status: "Semester Not Started" };
 
     const dayOfWeek = today.getDay();
-    if (dayOfWeek === 0 || dayOfWeek === 6)
-      return { ...result, status: "NON-WORKING DAY", reason: "Weekend" };
+    if (dayOfWeek === 0)
+      return { ...result, status: "NON-WORKING DAY", reason: "Sunday" };
+
+    if (dayOfWeek === 6) {
+      if (holidayData.has(today.toDateString()))
+        return {
+          ...result,
+          status: "NON-WORKING DAY",
+          reason: holidayData.get(today.toDateString()),
+        };
+      const dayOfMonth = today.getDate();
+      const occurrence = Math.ceil(dayOfMonth / 7);
+      if (occurrence % 2 !== 0) {
+        return { ...result, status: "NON-WORKING DAY", reason: "Odd Saturday" };
+      } else {
+        return { ...result, status: "WORKING SATURDAY" };
+      }
+    }
+
     if (holidayData.has(today.toDateString()))
       return {
         ...result,
@@ -73,9 +90,10 @@ async function calculateDayOrderJS() {
     let workingDayCount = 0;
     let curr = new Date(startDate);
     while (curr <= today) {
+      const currDayOfWeek = curr.getDay();
       if (
-        curr.getDay() !== 0 &&
-        curr.getDay() !== 6 &&
+        currDayOfWeek !== 0 &&
+        currDayOfWeek !== 6 &&
         !holidayData.has(curr.toDateString())
       )
         workingDayCount++;
