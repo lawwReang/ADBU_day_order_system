@@ -6,6 +6,15 @@ let holidayConfig = null;
 const hide = (id) => document.getElementById(id).classList.add("hidden");
 const show = (id) => document.getElementById(id).classList.remove("hidden");
 
+// Helper to wrap state changes in View Transitions
+function transition(updateFn) {
+  if (!document.startViewTransition) {
+    updateFn();
+    return;
+  }
+  document.startViewTransition(updateFn);
+}
+
 // Helper to get local YYYY-MM-DD (Fixes Timezone Shift)
 function getLocalDateString(date) {
   const y = date.getFullYear();
@@ -185,26 +194,32 @@ function renderCalendar() {
 }
 
 function showWelcome() {
-  show("welcomeScreen");
-  hide("guestView");
-  hide("adminLogin");
-  hide("adminPanel");
-  document.getElementById("title").textContent = "Services";
-  document.getElementById("portalStatus").textContent = "Academic Access Gateway";
+  transition(() => {
+    show("welcomeScreen");
+    hide("guestView");
+    hide("adminLogin");
+    hide("adminPanel");
+    document.getElementById("title").textContent = "Services";
+    document.getElementById("portalStatus").textContent = "Day Order Gateway";
+  });
 }
 
 function showGuestView() {
-  hide("welcomeScreen");
-  show("guestView");
-  document.getElementById("title").textContent = "Student Portal";
-  fetchDayOrder("dayOrderInfo");
+  transition(() => {
+    hide("welcomeScreen");
+    show("guestView");
+    document.getElementById("title").textContent = "Student Portal";
+    fetchDayOrder("dayOrderInfo");
+  });
 }
 
 function showAdminLogin() {
-  hide("welcomeScreen");
-  show("adminLogin");
-  document.getElementById("pinInput").value = "";
-  document.getElementById("title").textContent = "Authentication";
+  transition(() => {
+    hide("welcomeScreen");
+    show("adminLogin");
+    document.getElementById("pinInput").value = "";
+    document.getElementById("title").textContent = "Authentication";
+  });
 }
 
 function logout() {
@@ -221,10 +236,12 @@ async function verifyPassword() {
   });
   if (response.ok) {
     currentPin = pin;
-    hide("adminLogin");
-    show("adminPanel");
-    fetchDayOrder("adminDayOrderInfo");
-    document.getElementById("title").textContent = "Admin Console";
+    transition(() => {
+      hide("adminLogin");
+      show("adminPanel");
+      fetchDayOrder("adminDayOrderInfo");
+      document.getElementById("title").textContent = "Admin Console";
+    });
   } else alert("Incorrect PIN");
 }
 

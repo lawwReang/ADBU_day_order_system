@@ -9,6 +9,7 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@700;800&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="logo.png">
     <style>
         .hidden {
             display: none !important;
@@ -26,7 +27,7 @@
 
     <header>
         <div class="nav-brand">
-            <img src="Clogo2.png" class="header-logo" alt="Logo">
+            <img src="logo.png" class="header-logo" alt="Logo">
             <span>Assam Don Bosco University</span>
         </div>
     </header>
@@ -71,9 +72,11 @@
         </div>
 
         <div id="guestView" class="hidden">
-            <div id="dayOrderInfo">Connecting...</div>
-            <button class="btn-calendar" onclick="openCalendar()"> View Day Order Calendar</button>
-            <a class="back-link" onclick="showWelcome()">← Return to Services</a>
+            <div class="guestbox">
+                <div id="dayOrderInfo">Connecting...</div>
+                <button class="btn-calendar" onclick="openCalendar()"> View Day Order Calendar</button>
+                <a class="back-link" onclick="showWelcome()">Return to Services</a>
+            </div>
         </div>
 
         <div id="adminLogin" class="hidden">
@@ -81,24 +84,26 @@
                 <input type="password" id="pinInput" placeholder="System PIN">
                 <button class="btn-login" onclick="verifyPassword()">Authenticate</button>
             </div>
-            <a class="back-link" onclick="showWelcome()">← Return to Services</a>
+            <a class="back-link" onclick="showWelcome()">Return to Services</a>
         </div>
 
         <div id="adminPanel" class="hidden">
-            <div id="adminDayOrderInfo"></div>
-            <button class="btn-calendar" onclick="openCalendar()">View Day Order Calendar</button>
-            <div class="admin-controls">
-                <h3>System Manager</h3>
-                <form id="holidayForm">
-                    <label>Target Date</label>
-                    <input type="date" id="hDate" required>
-                    <label>Override Reason</label>
-                    <input type="text" id="hReason" placeholder="Reason (e.g. Rain)" required>
-                    <button type="submit" class="btn-add">Commit Holiday</button>
-                </form>
-                <div id="message" class="hidden"></div>
+            <div class="adminbox">
+                <div id="adminDayOrderInfo"></div>
+                <button class="btn-calendar" onclick="openCalendar()">View Day Order Calendar</button>
+                <div class="admin-controls">
+                    <h3>System Manager</h3>
+                    <form id="holidayForm">
+                        <label>Target Date</label>
+                        <input type="date" id="hDate" required>
+                        <label>Override Reason</label>
+                        <input type="text" id="hReason" placeholder="Reason (e.g. Rain)" required>
+                        <button type="submit" class="btn-add">Commit Holiday</button>
+                    </form>
+                    <div id="message" class="hidden"></div>
+                </div>
+                <a class="back-link" onclick="logout()">Sign Out</a>
             </div>
-            <a class="back-link" onclick="logout()">← Sign Out</a>
         </div>
 
         <!-- Calendar Model -->
