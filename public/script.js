@@ -21,41 +21,38 @@ function getSaturdayOccurrence(date) {
 // Replicating logic for frontend preview
 function calculateDayOrderForDate(targetDate, config) {
     if (!config) return { status: "Loading..." };
-    
-    const { semester_start_date, day_order_cycle, holidays } = config;
-    const startDate = new Date(semester_start_date);
-    startDate.setHours(0,0,0,0);
-    targetDate.setHours(0,0,0,0);
+    const startDate = new Date(config.semester_start_date);
+    const day_order_cycle = config.day_order_cycle;
+    const holidays = config.holidays || [];
 
     if (targetDate < startDate) return { status: "Semester Not Started" };
-    
-    const dayOfWeek = targetDate.getDay();
+
+    const targetDayOfWeek = targetDate.getDay();
     const targetDateStr = getLocalDateString(targetDate);
     const holiday = holidays.find(h => h.date === targetDateStr);
 
     // Rule 1: Sunday is always a non-working day
-    if (dayOfWeek === 0) return { status: "NON-WORKING DAY", reason: "Sunday" };
+    if (targetDayOfWeek === 0) return { status: "NON-WORKING DAY", reason: "Sunday" };
 
     // Rule 2: Saturday logic
-    if (dayOfWeek === 6) {
+    if (targetDayOfWeek === 6) {
         if (holiday) return { status: holiday.name };
         const occurrence = getSaturdayOccurrence(targetDate);
-        if (occurrence % 2 !== 0) {
+        if (occurrence % 2 !== 1) {
             return { status: "NON-WORKING DAY", reason: "Odd Saturday" };
         } else {
             return { status: "WORKING SATURDAY" };
         }
     }
-    
+
     if (holiday) return { status: holiday.name };
 
     let workingDayCount = 0;
     let curr = new Date(startDate);
     while (curr <= targetDate) {
         const currDayOfWeek = curr.getDay();
-        const currStr = getLocalDateString(curr);
-        const isHoliday = holidays.some(h => h.date === currStr);
-        
+        const currDateStr = getLocalDateString(curr);
+        const isHoliday = holidays.some(h => h.date === currDateStr);
         // Working days are Mon-Fri that are not holidays
         if (currDayOfWeek !== 0 && currDayOfWeek !== 6 && !isHoliday) {
             workingDayCount++;
@@ -107,64 +104,70 @@ function nextMonth() {
 }
 
 function renderCalendar() {
-    const grid = document.getElementById("calendarGrid");
-    const monthTitle = document.getElementById("calendarMonth");
-    grid.innerHTML = "";
+  const grid = document.getElementById("calendarGrid");
+  const monthTitle = document.getElementById("calendarMonth");
+  grid.innerHTML = "";
 
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+  const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+  const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     
-    const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-    monthTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
+  const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+  monthTitle.textContent = `${monthNames[currentMonth]} ${currentYear}`;
 
-    for (let i = 0; i < firstDay; i++) {
-        const emptyDiv = document.createElement("div");
-        emptyDiv.className = "calendar-day empty";
-        grid.appendChild(emptyDiv);
-    }
+  for (let i = 0; i < firstDay; i++) {
+    const emptyDiv = document.createElement("div");
+    emptyDiv.className = "calendar-day empty";
+    grid.appendChild(emptyDiv);
+  }
 
-    const today = new Date();
-    today.setHours(0,0,0,0);
+  const today = new Date(); {
+    today.setHours(0, 0, 0, 0);
 
-    for (let d = 1; d <= daysInMonth; d++) {
-        const dateObj = new Date(currentYear, currentMonth, d);
-        const dayDiv = document.createElement("div");
-        dayDiv.className = "calendar-day";
-        dayDiv.textContent = d;
-
-        if (dateObj.toDateString() === today.toDateString()) dayDiv.classList.add("today");
+    if (dateObj.toDateString() === today.toDateString()) dayDiv.classList.add("today");
         
-        const dayOfWeek = dateObj.getDay();
-        if (dayOfWeek === 0) dayDiv.classList.add("weekend");
-        else if (dayOfWeek === 6) {
-            const occurrence = getSaturdayOccurrence(dateObj);
-            if (occurrence % 2 !== 0) dayDiv.classList.add("weekend");
-            else dayDiv.classList.add("club-day");
-        }
-
-        const dateStr = getLocalDateString(dateObj);
-        const isHoliday = holidayConfig?.holidays.some(h => h.date === dateStr);
-        if (isHoliday) dayDiv.classList.add("holiday");
-
-        dayDiv.onmouseover = () => {
-            const result = calculateDayOrderForDate(new Date(currentYear, currentMonth, d), holidayConfig);
-            const hoverInfo = document.getElementById("hoverInfo");
-            if (result.dayOrder) {
-                hoverInfo.innerHTML = `<span style="color:#10b981">● ${result.dayOrder}</span> (${result.status})`;
-            } else if (result.status === "WORKING SATURDAY") {
-                hoverInfo.innerHTML = `<span style="color:#a855f7">● ${result.status}</span>`;
-            } else {
-                hoverInfo.innerHTML = `<span style="color:#ef4444">○ ${result.status}</span>`;
-            }
-        };
-
-        dayDiv.onmouseout = () => {
-            document.getElementById("hoverInfo").textContent = "Hover over a date to see the Day Order";
-        };
-
-        grid.appendChild(dayDiv);
+    const dayOfWeek = dateObj.getDay();
+    if (dayOfWeek === 0) dayDiv.classList.add("weekend");
+    else if (dayOfWeek === 6) {
+      const occurrence = getSaturdayOccurrence(dateObj);
+      if (occurrence % 2 !== 0) dayDiv.classList.add("weekend");
+      else dayDiv.classList.add("club-day");
     }
-}
+
+    if (dateObj.toDateString() === today.toDateString()) dayDiv.classList.add("today");
+
+    dayDiv.onmouseover = () => {
+      const result = calculateDayOrderForDate(new Date(currentYear, currentMonth, d), holidayConfig);
+      const hoverInfo = document.getElementById("hoverInfo");
+      if (result.dayOrder) {
+        hoverInfo.innerHTML = `<span style="color:#10b981">● ${result.dayOrder}</span> (${result.status})`;
+      } else if (result.status === "WORKING SATURDAY") {
+        hoverInfo.innerHTML = `<span style="color:#a855f7">● ${result.status}</span>`;
+      } else {
+        hoverInfo.innerHTML = `<span style="color:#ef4444">○ ${result.status}</span>`;
+      }
+    };
+
+    const dateStr = getLocalDateString(dateObj);
+    const isHoliday = holidayConfig?.holidays.some(h => h.date === dateStr);
+    if (isHoliday) dayDiv.classList.add("holiday");
+
+    dayDiv.onmouseover = () => {
+      const result = calculateDayOrderForDate(new Date(currentYear, currentMonth, d), holidayConfig);
+      const hoverInfo = document.getElementById("hoverInfo");
+      if (result.dayOrder) {
+        hoverInfo.innerHTML = `<span style="color:#10b981">● ${result.dayOrder}</span> (${result.status})`;
+      } else {
+        hoverInfo.innerHTML = `<span style="color:#ef4444">○ ${result.status}</span>`;
+      }
+    };
+
+    dayDiv.onmouseout = () => {
+      document.getElementById("hoverInfo").textContent = "Hover over a date to see the Day Order";
+    };
+
+    grid.appendChild(dayDiv);
+  }
+}  
 
 function showWelcome() {
   show("welcomeScreen");
