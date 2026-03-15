@@ -208,7 +208,7 @@ main {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 18px 20px;
+    padding: 16px 20px;
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
@@ -224,10 +224,10 @@ main {
 }
 
 .portal-icon {
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-right: 18px;
-    width: 70px;
-    height: 70px;
+    width: 60px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -237,7 +237,7 @@ main {
 
 .portal-label {
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1rem;
     word-spacing: 10px;
     letter-spacing: 1px;
     text-transform: uppercase;
@@ -245,7 +245,7 @@ main {
 }
 
 .portal-desc {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     color: #94a3b8;
     text-transform: capitalize;
 }
@@ -653,7 +653,7 @@ footer {
 /* MOBILE RESPONSIVENESS */
 @media (max-width: 768px) {
     header {
-        padding: 10px 20px;
+        padding: 5px 10px;
     }
 
     .nav-brand {
@@ -670,7 +670,7 @@ footer {
     }
 
     .welcomebox {
-        padding: 30px 20px;
+        padding: 15px 10px;
     }
 
     .welcome-grid {
@@ -679,29 +679,30 @@ footer {
     }
 
     .portal-card {
-        padding: 15px;
+        padding: 10px;
     }
 
     .portal-icon {
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
+        width: 40px;
+        height: 40px;
+        font-size: 1.5rem;
         margin-right: 15px;
     }
 
     .portal-label {
-        font-size: 0.65rem;
+        font-size: 0.8rem;
         word-spacing: normal;
     }
 
     .portal-desc {
-        font-size: 0.6rem;
+        font-size: 0.7rem;
     }
 
     .notice-board {
         flex-direction: column;
         align-items: stretch;
-        gap: 10px;
+        gap: 5px;
+        padding: 5px 10px;
     }
 
     .notice-marquee {
@@ -709,7 +710,8 @@ footer {
     }
 
     .notice-text {
-        padding-right: 100vw;
+        padding-right: 80vw;
+        font-size: 0.4rem;
     }
 
     .day-cycle-display {
