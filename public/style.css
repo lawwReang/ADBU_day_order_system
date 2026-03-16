@@ -643,7 +643,7 @@ footer {
 }
 
 .calendar-day.today {
-    border: 2px solid #3b82f6;
+    border: 2px solid #3bf660;
     font-weight: 800;
     box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
 }
