@@ -94,7 +94,7 @@ async function openCalendar() {
     } else {
       holidayConfig = {
         semester_start_date: "2026-03-04",
-        day_order_cycle: 5,
+        day_order_cycle: 6,
         holidays: []
       };
     }
