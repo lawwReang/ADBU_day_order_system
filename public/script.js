@@ -32,7 +32,11 @@ function getSaturdayOccurrence(date) {
 function calculateDayOrderForDate(targetDate, config) {
   if (!config) return { status: "Loading..." };
 
-  const startDate = new Date(config.semester_start_date);
+  // Robust parsing: split YYYY-MM-DD to avoid UTC timezone shifts
+  const [y, m, d] = config.semester_start_date.split("-").map(Number);
+  const startDate = new Date(y, m - 1, d);
+  startDate.setHours(0, 0, 0, 0); 
+
   const holidays = config.holidays || [];
   const day_order_cycle = config.day_order_cycle || 5;
 
@@ -94,7 +98,7 @@ async function openCalendar() {
     } else {
       holidayConfig = {
         semester_start_date: "2026-03-04",
-        day_order_cycle: 6,
+        day_order_cycle: 5,
         holidays: []
       };
     }

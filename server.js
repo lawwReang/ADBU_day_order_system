@@ -43,7 +43,10 @@ async function calculateDayOrderJS() {
 
     const today = new Date();
     today.setHours(0, 0, 0, 0);
-    const startDate = new Date(startStr);
+    
+    // Robust parsing: split YYYY-MM-DD to avoid UTC timezone shifts
+    const [y_start, m_start, d_start] = startStr.split("-").map(Number);
+    const startDate = new Date(y_start, m_start - 1, d_start);
     startDate.setHours(0, 0, 0, 0);
 
     const result = {
