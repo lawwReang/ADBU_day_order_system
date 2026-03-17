@@ -64,15 +64,8 @@ function calculateDayOrderForDate(targetDate, config) {
     const isHoliday = holidays.some(h => h.date === currStr);
 
     let isWorkingDay = false;
-    if (currDayOfWeek !== 0 && !isHoliday) {
-      if (currDayOfWeek === 6) {
-        const occurrence = getSaturdayOccurrence(curr);
-        if (occurrence % 2 === 0) {
-          isWorkingDay = true;
-        }
-      } else {
-        isWorkingDay = true;
-      }
+    if (currDayOfWeek !== 0 && currDayOfWeek !== 6 && !isHoliday) {
+      isWorkingDay = true;
     }
 
     if (isWorkingDay) {
@@ -82,8 +75,14 @@ function calculateDayOrderForDate(targetDate, config) {
   }
 
   const dayOrder = ((workingDayCount - 1) % day_order_cycle) + 1;
-  const statusStr = dayOfWeek === 6 ? "WORKING SATURDAY" : "WORKING DAY";
-  return { status: statusStr, dayOrder: `Day ${dayOrder}` };
+  if (dayOfWeek === 6) {
+    const occurrence = getSaturdayOccurrence(targetDate);
+    const statusStr = (occurrence % 2 === 0 && !holiday) ? "WORKING SATURDAY" : "NON-WORKING DAY";
+    const reason = (occurrence % 2 !== 0) ? "Odd Saturday" : (holiday ? holiday.name : "");
+    return { status: statusStr, reason: reason };
+  }
+  
+  return { status: "WORKING DAY", dayOrder: `Day ${dayOrder}` };
 }
 
 async function openCalendar() {
