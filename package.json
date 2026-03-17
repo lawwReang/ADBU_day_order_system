@@ -1,6 +1,6 @@
 {
   "name": "adbu-dayorder-portal",
-  "Version": "1.0.0",
+  "version": "1.0.0",
   "description": "college day order system prototype ",
   "main": "server.js",
   "scripts": {

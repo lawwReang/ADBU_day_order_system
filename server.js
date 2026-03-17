@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 8000;
+const PORT = process.env.PORT || 8000;
 const CONFIG_FILE = "holiday_2.json";
 const ADMIN_PIN = "473625";
 
