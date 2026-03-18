@@ -92,7 +92,7 @@ function calculateDayOrderForDate(targetDate, config) {
 async function openCalendar() {
   show("calendarModal");
   if (!holidayConfig) {
-    const response = await fetch('/holiday_2.json');
+    const response = await fetch(`/holiday_2.json?v=${new Date().getTime()}`);
     if (response.ok) {
       holidayConfig = await response.json();
     } else {
@@ -174,6 +174,7 @@ function renderCalendar() {
     const isHoliday = holidayConfig?.holidays.some(h => h.date === dateStr);
     if (isHoliday) {
       dayDiv.classList.add("holiday");
+      dayDiv.classList.add("weekend"); // Visual fix: mark as non-working day
     }
 
     dayDiv.onmouseover = () => {
