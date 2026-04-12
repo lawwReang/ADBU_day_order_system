@@ -8,6 +8,10 @@
       "name": "Good Friday"
     },
     {
+      "date": "2026-04-10",
+      "name": "Mid Semester Break"
+    },
+    {
       "date": "2026-04-12",
       "name": "Mid Semester Break"
     },
@@ -28,27 +32,19 @@
       "name": "Mid Semester Break"
     },
     {
-      "date": "2026-04-17",
-      "name": "Mid Semester Break"
-    },
-    {
-      "date": "2026-04-18",
-      "name": "Mid Semester Break"
-    },
-    {
-      "date": "2026-04-19",
-      "name": "Mid Semester Break"
-    },
-    {
-      "date": "2026-04-21",
-      "name": "Class Test 2"
-    },
-    {
       "date": "2026-04-22",
-      "name": "Class Test 2"
+      "name": "Class Test 2 "
     },
     {
       "date": "2026-04-23",
+      "name": "Class test 2 "
+    },
+    {
+      "date": "2026-04-24",
+      "name": "Class Test 2"
+    },
+    {
+      "date": "2026-04-25",
       "name": "Class Test 2"
     },
     {
